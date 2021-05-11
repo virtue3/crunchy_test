@@ -5,8 +5,6 @@ import "./App.css";
 import ProgressBar from "./progressBar";
 import { useState, ReactElement } from "react";
 
-let animationIndex = 0;
-
 function App() {
   const [progressBars, setProgressBars] = useState<ReactElement[]>([]);
   const [animationIndex, setAnimationIndex] = useState(0);
@@ -19,12 +17,7 @@ function App() {
           setProgressBars([
             ...progressBars,
             <div key={progressBars.length + 1}>
-              <ProgressBar
-                shouldAnimate={false}
-                doneAnimating={() => {
-                  setAnimationIndex(animationIndex + 1);
-                }}
-              />
+              <ProgressBar shouldAnimate={false} doneAnimating={() => {}} />
             </div>,
           ]);
         }}
@@ -33,6 +26,7 @@ function App() {
       </button>
 
       {progressBars.map((progressBar, index) => {
+        // if we have the progress bar at the animate index then we need to create a new one that is animating and change the prop "shouldAnimate" to true
         if (index === animationIndex) {
           return (
             <div key={progressBar.key}>
